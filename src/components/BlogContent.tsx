@@ -8,7 +8,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import SearchBar from '@/components/SearchBar';
 import { getBlogPosts, getBlogCategories } from '@/data/blogData';
 import type { BlogPost, BlogCategory } from '@/data/blogData';
-import { Calendar, Clock, User, Tag, SlidersHorizontal } from 'lucide-react';
+import { Calendar, Tag, SlidersHorizontal } from 'lucide-react';
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
@@ -53,7 +53,7 @@ const BlogContent = () => {
     const matchesCategory = selectedCategory === 'Todas' || post.category === selectedCategory;
     const matchesSearch = searchTerm === '' || 
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (post.excerpt ?? '').toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     

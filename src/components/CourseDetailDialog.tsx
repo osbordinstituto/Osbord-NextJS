@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Clock, Users, Star, BookOpen, Award, CheckCircle, ArrowRight, Monitor, Smartphone, FileText } from 'lucide-react';
+import { Clock, Users, Star, BookOpen, Award, ArrowRight, Monitor, Smartphone, FileText } from 'lucide-react';
 import CourseEnrollmentDialog from './CourseEnrollmentDialog';
 import CourseSchema from './CourseSchema';
 import CourseModuleDropdown from './CourseModuleDropdown';

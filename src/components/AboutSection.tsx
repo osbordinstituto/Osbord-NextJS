@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Card, CardContent } from '@/components/ui/card';
-import { Users, Award, BookOpen, Target, Globe, Monitor, GraduationCap } from 'lucide-react';
+import { Users, Award, BookOpen, Globe, Monitor, GraduationCap } from 'lucide-react';
 
 const AboutSection = () => {
   return (

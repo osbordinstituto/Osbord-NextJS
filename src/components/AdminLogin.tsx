@@ -56,7 +56,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ isOpen, onClose }) => {
         onClose();
         router.push('/admin');
       }
-    } catch (error: unknown) {
+    } catch {
       toast({
         title: "Error",
         description: "Ocurrió un error inesperado. Inténtalo de nuevo.",

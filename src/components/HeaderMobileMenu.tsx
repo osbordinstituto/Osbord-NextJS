@@ -20,17 +20,12 @@ const HeaderMobileMenu: React.FC<HeaderMobileMenuProps> = ({
   isMenuOpen,
   setIsMenuOpen,
   user,
-  onNavigation,
+  onNavigation: _onNavigation,
   onAnchorNavigation,
   onSignOut,
   onAdminClick
 }) => {
   const isAdmin = user?.email === 'osbordinstituto@gmail.com';
-
-  const handleNavigation = (path: string) => {
-    onNavigation(path);
-    setIsMenuOpen(false);
-  };
 
   const handleAnchorNavigation = (anchor: string) => {
     onAnchorNavigation(anchor);
@@ -63,22 +58,22 @@ const HeaderMobileMenu: React.FC<HeaderMobileMenuProps> = ({
         <div className="xl:hidden absolute top-full right-0 w-80 bg-white/95 backdrop-blur-sm border-l border-b border-gray-200 shadow-lg z-50">
           <div className="p-4">
             <nav className="flex flex-col space-y-4">
-              <Link href="/" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-[#16394a] font-medium text-right">
+              <Link href="/" onClick={() => { _onNavigation('/'); setIsMenuOpen(false); }} className="text-gray-700 hover:text-[#16394a] font-medium text-right">
                 Inicio
               </Link>
-              <Link href="/cursos" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-[#16394a] font-medium text-right">
+              <Link href="/cursos" onClick={() => { _onNavigation('/cursos'); setIsMenuOpen(false); }} className="text-gray-700 hover:text-[#16394a] font-medium text-right">
                 Cursos
               </Link>
-              <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-[#16394a] font-medium text-right">
+              <Link href="/blog" onClick={() => { _onNavigation('/blog'); setIsMenuOpen(false); }} className="text-gray-700 hover:text-[#16394a] font-medium text-right">
                 Blog
               </Link>
-              <Link href="/nosotros" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-[#16394a] font-medium text-right">
+              <Link href="/nosotros" onClick={() => { _onNavigation('/nosotros'); setIsMenuOpen(false); }} className="text-gray-700 hover:text-[#16394a] font-medium text-right">
                 Nosotros
               </Link>
               <button onClick={() => handleAnchorNavigation('testimonios')} className="text-gray-700 hover:text-[#16394a] font-medium text-right">
                 Testimonios
               </button>
-              <Link href="/contacto" onClick={() => setIsMenuOpen(false)} className="text-gray-700 hover:text-[#16394a] font-medium text-right">
+              <Link href="/contacto" onClick={() => { _onNavigation('/contacto'); setIsMenuOpen(false); }} className="text-gray-700 hover:text-[#16394a] font-medium text-right">
                 Contacto
               </Link>
               

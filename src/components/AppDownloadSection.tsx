@@ -66,7 +66,7 @@ const AppDownloadSection = () => {
                 </DialogHeader>
                 <div className="space-y-3 text-sm text-gray-600">
                   <ol className="list-decimal pl-5 space-y-2">
-                    <li>Toca el botón "Descargar APK" para obtener el archivo.</li>
+                    <li>Toca el botón &quot;Descargar APK&quot; para obtener el archivo.</li>
                     <li>Si tu dispositivo lo solicita, permite la instalación desde orígenes desconocidos.</li>
                     <li>Abre el archivo descargado y sigue las instrucciones de instalación.</li>
                   </ol>

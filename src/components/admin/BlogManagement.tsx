@@ -32,24 +32,7 @@ const BlogManagement = () => {
     loadPosts();
   }, []);
 
-  useEffect(() => {
-    filterPosts();
-  }, [posts, searchTerm, filter]);
-
-  const loadPosts = async () => {
-    try {
-      setLoading(true);
-      const data = await getAllBlogPosts();
-      setPosts(data);
-    } catch (error) {
-      console.error('Error loading posts:', error);
-      toast.error('Error al cargar los posts');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const filterPosts = () => {
+  const filterPosts = React.useCallback(() => {
     let filtered = posts;
 
     // Filter by publication status
@@ -69,7 +52,26 @@ const BlogManagement = () => {
     }
 
     setFilteredPosts(filtered);
+  }, [posts, searchTerm, filter]);
+
+  useEffect(() => {
+    filterPosts();
+  }, [filterPosts]);
+
+  const loadPosts = async () => {
+    try {
+      setLoading(true);
+      const data = await getAllBlogPosts();
+      setPosts(data);
+    } catch (error) {
+      console.error('Error loading posts:', error);
+      toast.error('Error al cargar los posts');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  
 
   const handleDelete = async (id: string, title: string) => {
     if (!confirm(`¿Estás seguro de que quieres eliminar "${title}"?`)) {

@@ -58,7 +58,7 @@ export default function Auth() {
           });
         }
       }
-    } catch (error: unknown) {
+    } catch {
       toast({
         title: "Error",
         description: "Ocurrió un error inesperado. Inténtalo de nuevo.",

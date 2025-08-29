@@ -5,7 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Plus, Trash2, GripVertical, PlayCircle, BookOpen, FileCheck, PenTool } from 'lucide-react';
+import { Plus, Trash2, GripVertical, BookOpen, FileCheck } from 'lucide-react';
 import { CourseModule, Lesson } from '@/data/coursesData';
 
 interface ModuleLessonEditorProps {
@@ -69,11 +69,6 @@ const ModuleLessonEditor: React.FC<ModuleLessonEditorProps> = ({ modules, onChan
   };
 
   const addLesson = (moduleId: string) => {
-    const lessonTypes = [
-      { value: 'leccion', label: 'Lección', icon: BookOpen },
-      { value: 'examen', label: 'Examen', icon: FileCheck }
-    ];
-
     const newLesson: Lesson = {
       id: generateId(),
       title: 'Nueva lección',

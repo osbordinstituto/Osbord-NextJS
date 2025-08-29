@@ -1,10 +1,9 @@
 'use client';
 
 import { useRouter } from "next/navigation";
-import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from "@/components/ui/button";
-import { Home, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   const router = useRouter();

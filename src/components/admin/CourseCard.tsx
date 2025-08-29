@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Edit, Trash2, Eye, Users, Clock } from 'lucide-react';
+import { Edit, Trash2 } from 'lucide-react';
 import { Course } from '@/data/coursesData';
 
 interface CourseCardProps {

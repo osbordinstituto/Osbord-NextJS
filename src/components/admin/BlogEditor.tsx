@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Save, Eye, X, Plus } from 'lucide-react';
-import { createBlogPost, getBlogPostBySlug, updateBlogPost } from '@/data/blogData';
+import { createBlogPost, updateBlogPost } from '@/data/blogData';
 import type { BlogPost } from '@/data/blogData';
 import Link from 'next/link';
 
@@ -34,26 +35,18 @@ const BlogEditor = ({ postId }: BlogEditorProps) => {
   const [newTag, setNewTag] = useState('');
   const [activeTab, setActiveTab] = useState('editor');
   const [saving, setSaving] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
   // Load post data if editing
-  useEffect(() => {
-    if (postId) {
-      loadPost();
-    }
-  }, [postId]);
-
-  const loadPost = async () => {
+  const loadPost = React.useCallback(async () => {
     if (!postId) return;
     
     try {
-      setLoading(true);
       // For editing, we need to get the post by ID, but our current function gets by slug
       // We'll need to add a function to get by ID, for now using mock data approach
       const { getAllBlogPosts } = await import('@/data/blogData');
-      const allPosts = await getAllBlogPosts();
-      const post = allPosts.find((p: any) => p.id === postId);
+      const allPosts: BlogPost[] = await getAllBlogPosts();
+      const post = allPosts.find((p: BlogPost) => p.id === postId);
       
       if (post) {
         setFormData({
@@ -74,10 +67,14 @@ const BlogEditor = ({ postId }: BlogEditorProps) => {
     } catch (error) {
       console.error('Error loading post:', error);
       toast.error('Error al cargar el post');
-    } finally {
-      setLoading(false);
     }
-  };
+  }, [postId]);
+
+  useEffect(() => {
+    if (postId) {
+      loadPost();
+    }
+  }, [postId, loadPost]);
 
   const generateSlug = (title: string) => {
     return title
@@ -88,12 +85,15 @@ const BlogEditor = ({ postId }: BlogEditorProps) => {
       .trim();
   };
 
-  const handleInputChange = (field: keyof typeof formData, value: any) => {
+  const handleInputChange = (
+    field: keyof typeof formData,
+    value: string | number | boolean | string[]
+  ) => {
     setFormData(prev => {
       const updated = { ...prev, [field]: value };
       
       // Auto-generate slug when title changes
-      if (field === 'title') {
+      if (field === 'title' && typeof value === 'string') {
         updated.slug = generateSlug(value);
       }
       
@@ -179,10 +179,12 @@ const BlogEditor = ({ postId }: BlogEditorProps) => {
       <div className="mb-8">
         <div className="relative h-64 bg-gray-200 rounded-lg overflow-hidden mb-6">
           {formData.featured_image ? (
-            <img 
-              src={formData.featured_image} 
+            <Image
+              src={formData.featured_image}
               alt={formData.title}
-              className="w-full h-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1024px"
+              className="object-cover"
             />
           ) : (
             <div className="flex items-center justify-center h-full text-gray-500">

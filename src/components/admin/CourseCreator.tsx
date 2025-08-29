@@ -28,7 +28,7 @@ export const CourseCreator = () => {
     students: 0,
     rating: 4.5,
     level: '',
-    modules: [] as any[],
+    modules: [] as string[],
     prerequisites: [] as string[],
     detailed_description: '',
     image: ''
@@ -209,7 +209,10 @@ export const CourseCreator = () => {
     }
   };
 
-  const handleInputChange = (field: keyof typeof formData, value: any) => {
+  const handleInputChange = (
+    field: keyof typeof formData,
+    value: string | number | boolean | string[]
+  ) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -563,9 +566,9 @@ export const CourseCreator = () => {
                     <li><code>title</code> - Título del curso</li>
                     <li><code>description</code> - Descripción breve</li>
                     <li><code>category</code> - Categoría del curso</li>
-                    <li><code>price</code> - Precio (ej: "$199")</li>
-                    <li><code>duration</code> - Duración (ej: "12 semanas")</li>
-                    <li><code>level</code> - Nivel (ej: "Principiante")</li>
+                    <li><code>price</code> - Precio (ej: &quot;$199&quot;)</li>
+                    <li><code>duration</code> - Duración (ej: &quot;12 semanas&quot;)</li>
+                    <li><code>level</code> - Nivel (ej: &quot;Principiante&quot;)</li>
                   </ul>
                   <p><strong>Campos opcionales:</strong> students, rating, modules, prerequisites, detailed_description, image</p>
                 </div>

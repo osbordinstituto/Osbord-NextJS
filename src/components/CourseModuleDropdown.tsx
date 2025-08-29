@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronRight, PlayCircle, BookOpen, FileCheck, PenTool, Clock } from 'lucide-react';
+import { ChevronDown, ChevronRight, BookOpen, FileCheck, Clock } from 'lucide-react';
 import { CourseModule, Lesson } from '@/data/coursesData';
 
 interface CourseModuleDropdownProps {

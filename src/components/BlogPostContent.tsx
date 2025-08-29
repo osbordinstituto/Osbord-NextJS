@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { BlogPost } from '@/data/blogData';
-import { Calendar, Clock, User, Tag, ArrowLeft, Share2 } from 'lucide-react';
+import { Calendar, Clock, Tag, ArrowLeft } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -22,23 +22,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
     });
   };
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: post.title,
-          text: post.excerpt,
-          url: window.location.href,
-        });
-      } catch (error) {
-        console.log('Error sharing:', error);
-      }
-    } else {
-      // Fallback: copy to clipboard
-      navigator.clipboard.writeText(window.location.href);
-      alert('Enlace copiado al portapapeles');
-    }
-  };
+  
 
   return (
     <main className="min-h-screen bg-white">
@@ -48,7 +32,7 @@ const BlogPostContent: React.FC<BlogPostContentProps> = ({ post }) => {
         {/* Hero Section */}
         <div className="relative h-96 overflow-hidden">
           <Image
-            src={post.featured_image}
+            src={post.featured_image || '/lovable-uploads/7339c3b8-048b-4b3f-b572-26c174eeeefb.png'}
             alt={post.title}
             fill
             className="object-cover"

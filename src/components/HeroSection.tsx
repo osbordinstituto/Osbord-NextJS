@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BookOpen, Users, Award } from 'lucide-react';
+import { BookOpen, Award } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const HeroSection = () => {

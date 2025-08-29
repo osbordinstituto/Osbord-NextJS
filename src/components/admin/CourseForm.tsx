@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Course, CourseModule } from '@/data/coursesData';
+import { Course } from '@/data/coursesData';
 import CourseFormHeader from './CourseFormHeader';
 import CourseBasicFields from './CourseBasicFields';
 import CourseDetailsFields from './CourseDetailsFields';

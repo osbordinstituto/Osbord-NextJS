@@ -11,7 +11,6 @@ export default function AdminContent() {
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const [isCreating, setIsCreating] = useState(false);
   const [activeTab, setActiveTab] = useState('courses');
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [formData, setFormData] = useState<Partial<Course>>({
     modules: [],
@@ -70,14 +69,12 @@ export default function AdminContent() {
 
   const loadCourses = async () => {
     try {
-      setLoading(true);
       const coursesData = await getCourses();
       setCourses(coursesData);
     } catch (error) {
       console.error('Error loading courses:', error);
       toast.error('Error al cargar los cursos');
     } finally {
-      setLoading(false);
     }
   };
 
@@ -112,7 +109,8 @@ export default function AdminContent() {
       // Check if modules are JSON strings and parse them
       if (typeof processedModules[0] === 'string' && processedModules[0].startsWith('{')) {
         try {
-          processedModules = processedModules.map((moduleStr: any) => JSON.parse(moduleStr));
+          const asStrings = processedModules as unknown as string[];
+          processedModules = asStrings.map((moduleStr) => JSON.parse(moduleStr));
           console.log('Parsed JSON modules for editing:', processedModules);
         } catch (error) {
           console.error('Error parsing modules for editing:', error);

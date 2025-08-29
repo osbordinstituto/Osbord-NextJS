@@ -48,8 +48,8 @@ export const addCourseUpdateListener = (listener: CourseUpdateListener) => {
 };
 
 // Helper function to convert legacy string modules to CourseModule structure
-const convertLegacyModules = (modules: any): CourseModule[] => {
-  if (!modules || modules.length === 0) return [];
+const convertLegacyModules = (modules: unknown): CourseModule[] => {
+  if (!Array.isArray(modules) || modules.length === 0) return [];
   
   // If it's a string array (legacy format - simple titles)
   if (typeof modules[0] === 'string' && !modules[0].startsWith('{')) {
@@ -91,8 +91,16 @@ const convertLegacyModules = (modules: any): CourseModule[] => {
   // If it's JSON strings (serialized format from JSON import)
   if (typeof modules[0] === 'string' && modules[0].startsWith('{')) {
     try {
-      return modules.map((moduleStr: string) => {
-        const parsed = JSON.parse(moduleStr);
+      const asStrings = modules as string[];
+      return asStrings.map((moduleStr) => {
+        const parsedUnknown: unknown = JSON.parse(moduleStr);
+        const parsed = parsedUnknown as Partial<CourseModule> & {
+          lessons?: Array<string | Partial<Lesson>>;
+          id?: string;
+          title?: string;
+          description?: string;
+          duration?: string;
+        };
         
         // Handle old JSON format with lessons as string array
         if (parsed.lessons && Array.isArray(parsed.lessons) && typeof parsed.lessons[0] === 'string') {
@@ -117,10 +125,18 @@ const convertLegacyModules = (modules: any): CourseModule[] => {
         return {
           ...parsed,
           id: moduleId,
-          lessons: parsed.lessons?.map((lesson: any, lessonIndex: number) => ({
-            ...lesson,
-            id: lesson.id || `lesson-${moduleId}-${lessonIndex}`
-          })) || []
+          lessons: (parsed.lessons || []).map((lesson, lessonIndex: number) => {
+            const l = (typeof lesson === 'string'
+              ? { title: lesson, duration: '30 min', type: (lessonIndex % 3 === 2) ? 'examen' as const : 'leccion' as const }
+              : lesson) as Partial<Lesson>;
+            return {
+              id: l.id || `lesson-${moduleId}-${lessonIndex}`,
+              title: l.title || `Lección ${lessonIndex + 1}`,
+              duration: l.duration || '30 min',
+              type: l.type || 'leccion',
+              description: l.description,
+            } satisfies Lesson;
+          })
         };
       });
     } catch (error) {
